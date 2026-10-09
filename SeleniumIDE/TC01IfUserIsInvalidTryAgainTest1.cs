@@ -14,6 +14,7 @@ using NUnit.Framework;
 [TestFixture]
 public class TC01IfUserIsInvalidTryAgainTest
 {
+    private ChromeOptions options;
     private IWebDriver driver;
     public IDictionary<string, object> vars { get; private set; }
     private IJavaScriptExecutor js;
@@ -21,7 +22,9 @@ public class TC01IfUserIsInvalidTryAgainTest
     [SetUp]
     public void SetUp()
     {
-        driver = new ChromeDriver();
+        options = new ChromeOptions();
+        options.AddArguments("--headless");
+        driver = new ChromeDriver(options);
         js = (IJavaScriptExecutor)driver;
         vars = new Dictionary<string, object>();
     }
@@ -30,6 +33,7 @@ public class TC01IfUserIsInvalidTryAgainTest
     protected void TearDown()
     {
         driver.Quit();
+        driver.Dispose();
     }
 
     [Test]
